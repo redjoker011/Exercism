@@ -2,23 +2,49 @@ using System;
 
 class RemoteControlCar
 {
+    private readonly int meterPerRun = 20;
+    private int battery { get;set; }
+    private int odoMeter { get;set; }
+
     public static RemoteControlCar Buy()
     {
-        throw new NotImplementedException("Please implement the (static) RemoteControlCar.Buy() method");
+        return new RemoteControlCar();
+    }
+
+    public RemoteControlCar() {
+        battery = 100;
+        odoMeter = 0;
     }
 
     public string DistanceDisplay()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.DistanceDisplay() method");
+        return $"Driven {odoMeter} meters";
     }
 
     public string BatteryDisplay()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.BatteryDisplay() method");
+        string message = String.Empty;
+            if(canDrive())
+            {
+                message = $"Battery at {battery}%";
+            }
+            else
+            {
+                message = "Battery empty";
+            }
+            return message;
     }
 
     public void Drive()
     {
-        throw new NotImplementedException("Please implement the RemoteControlCar.Drive() method");
+        if(canDrive()) {
+            odoMeter += 20;
+            --battery;
+        }
+    }
+
+    private bool canDrive()
+    {
+        return battery > 0;
     }
 }
